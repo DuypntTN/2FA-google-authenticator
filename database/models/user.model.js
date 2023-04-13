@@ -7,13 +7,20 @@ module.exports = (sequelize, Sequelize) => {
     uid: {
       type: Sequelize.STRING,
       nullable: false,
+      unique: true,
     },
     encoding_code: {
       type: Sequelize.STRING,
-      nullable: false,
     },
     encoding_type: {
       type: Sequelize.STRING,
+    },
+    encoding_type: {
+      type: Sequelize.STRING,
+    },
+    active: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: true,
       nullable: false,
     },
   })

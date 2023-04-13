@@ -17,8 +17,10 @@
     "nodemon": "^2.0.22",
     "pg": "^8.10.0",
     "pg-hstore": "^2.3.4",
+    "qrcode": "^1.5.1",
     "sequelize": "^6.31.0",
     "sequelize-cli": "^6.6.0",
+    "speakeasy": "^2.0.0",
     "yarn": "^1.22.19"
   },
   "devDependencies": {

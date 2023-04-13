@@ -49,7 +49,20 @@ exports.findAll = (req, res) => {
 }
 
 // Find a single User with an id
-exports.findOne = (req, res) => {}
+exports.findOne = (req, res) => {
+  const uid = req.params.uid
+  var condition = uid ? { uid: { [Op.iLike]: `%${uid}%` } } : null
+
+  User.findAll({ where: condition })
+    .then((data) => {
+      res.send(data)
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: err.message || 'Some error occurred while retrieving user.',
+      })
+    })
+}
 
 // Update a User by the id in the request
 exports.update = (req, res) => {}

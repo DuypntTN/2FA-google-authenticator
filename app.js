@@ -25,7 +25,9 @@ app.use(rootRouter)
 
 // --------------------------------------------------
 db.sequelize
-  .sync()
+  .sync({
+    force: false,
+  })
   .then(() => {
     app.listen(port, () => {
       console.log(`App listening at http://localhost:${port}`)
