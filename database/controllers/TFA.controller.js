@@ -1,11 +1,9 @@
 const db = require('../models')
 const User = db.User
 const Op = db.Sequelize.Op
-const {
-  generateTFACode,
-  verifyTFACode,
-} = require('../../helpers/generateTFACode')
+const { generateTFACode } = require('../../helpers/generateTFACode')
 const QRCode = require('qrcode')
+const { verifyTFACode } = require('../../helpers/verifyTFACode')
 exports.gen = (req, res) => {
   try {
     const uid = req.body.uid
@@ -61,7 +59,7 @@ exports.gen = (req, res) => {
         }
 
         // GENCODE
-        const code = generateTFACode('ECOGIONG(' + uid + username + ')')
+        const code = generateTFACode('ECOGIONG(' + username +'_ID_'+ uid + ')')
         const { ascii, otpauth_url } = code
         // Save code to db
         User.update(
