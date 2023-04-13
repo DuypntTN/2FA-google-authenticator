@@ -1,23 +1,18 @@
-{
-  "development": {
-    "username": "root",
-    "password": null,
-    "database": "database_development",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+import dotenv from 'dotenv'
+dotenv.config()
+
+
+
+module.exports = {
+  HOST: process.env.HOST || 'localhost',
+  USER: process.env.USER || 'postgres',
+  PASSWORD: process.env.PASSWORD || 'postgres',
+  DB: process.env.DB,
+  dialect: 'postgres',
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
   },
-  "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  },
-  "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
-  }
 }
