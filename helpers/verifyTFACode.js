@@ -4,7 +4,7 @@ exports.verifyTFACode = (secret, token, type) => {
   const verified = speakeasy.totp.verify({
     secret: secret,
     encoding: type,
-    token: token,
+    token: typeof token === 'string' ? parseInt(token) : token,
   })
   return verified
 }

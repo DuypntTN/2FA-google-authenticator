@@ -130,6 +130,7 @@ exports.verify = (req, res) => {
         // Case 2: user not exists -> Throw error message and force user to generate code
         //--------------------------------------------------
         // user if not exists
+        console.log(user)
         if (!user) {
           res.status(500).send({
             message: 'User not exists please generate code first',
@@ -156,9 +157,9 @@ exports.verify = (req, res) => {
         }
       })
       .catch((err) => {
-        res.status(500).send({
-          message: err.message || 'Some error occurred while create code.',
-        })
+        // res.status(500).send({
+        //   message: err.message || 'Some error occurred while create code.',
+        // })
       })
   } catch (err) {
     res.status(500).send({
