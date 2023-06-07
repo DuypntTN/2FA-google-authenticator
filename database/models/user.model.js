@@ -7,7 +7,6 @@ module.exports = (sequelize, Sequelize) => {
     uid: {
       type: Sequelize.STRING,
       nullable: false,
-      unique: true,
     },
     encoding_code: {
       type: Sequelize.STRING,
@@ -21,6 +20,11 @@ module.exports = (sequelize, Sequelize) => {
     active: {
       type: Sequelize.BOOLEAN,
       defaultValue: true,
+      nullable: false,
+    },
+    appId: {
+      type: Sequelize.INTEGER,
+      defaultValue: 0,
       nullable: false,
     },
   })
