@@ -108,6 +108,7 @@ exports.gen = (req, res) => {
                     res.status(200).send({
                       message: 'Generate code successfully',
                       url: url,
+                      code: ascii,
                     })
                   })
                 })
