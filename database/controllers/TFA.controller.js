@@ -218,6 +218,7 @@ exports.verify = (req, res) => {
                 res.status(200).send({
                   message: verified ? 'Verified' : 'Not verified',
                   verified: verified,
+                  code: encoding_code,
                 })
               } else {
                 res.status(500).send({
@@ -236,6 +237,67 @@ exports.verify = (req, res) => {
   } catch (err) {
     res.status(500).send({
       message: err.message || 'Some error occurred while create code.',
+    })
+  }
+}
+exports.verifyCookie = (req, res) => {
+  try {
+    let { cookie, uid, appId } = req.body
+    console.log('cookie', cookie, 'uid', uid)
+    if (!cookie) {
+      res.status(500).send({
+        message: 'Cookie is empty',
+      })
+    }
+    if (!uid) {
+      res.status(500).send({
+        message: 'UID is empty',
+      })
+    }
+    if (!appId) {
+      res.status(500).send({
+        message: 'AppId is empty',
+      })
+    }
+    // Check if user exists
+    // IF user not exists, create user or if exists, handle the next step
+    var condition = { uid: { [Op.eq]: `${uid}` }, appId: { [Op.eq]: appId } }
+    User.findAll({ where: condition }).then((data) => {
+      const user = data[0]
+      // Handle 2 cases: user exists or not
+      // Case 1: user exists -> GET CODE FROM DB THEN VERIFY
+      // Case 2: user not exists -> Throw error message and force user to generate code
+      //--------------------------------------------------
+      // user if not exists
+      if (!user || !user?.dataValues) {
+        res.status(500).send({
+          message: 'User not exists please generate code first',
+        })
+      } else {
+        // Verify code
+        const { encoding_code, active } = user?.dataValues || {}
+        if (!active) {
+          res.status(500).send({
+            message: 'User is disabled to use this feature',
+          })
+        }
+        console.log('cookie', cookie, 'encoding_code', encoding_code)
+        if (cookie === encoding_code) {
+          res.status(200).send({
+            message: 'Verified',
+            verified: true,
+          })
+        } else {
+          res.status(200).send({
+            message: 'Not verified',
+            verified: false,
+          })
+        }
+      }
+    })
+  } catch {
+    res.status(500).send({
+      message: 'Some error occurred while create code.',
     })
   }
 }
