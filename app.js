@@ -12,7 +12,9 @@ var port = process.env.PORT || 4000
 
 //--------------------------------------------------
 var corsOptions = {
-  origin: `http://localhost:3000`,
+  // Allow all origins
+  origin: '*',
+
 }
 app.use(cors(corsOptions))
 // parse requests of content-type - application/json
